@@ -4,7 +4,7 @@ import AuthLayout from './AuthLayout';
 
 const Root = () => {
 
-    const user = false
+    const user = true
     return (
         <div>
         {user ? <DashboardPage></DashboardPage>: <AuthLayout></AuthLayout>}
