@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   // Check if user exists in database
   const checkUserInDatabase = async (email) => {
     try {
-      const response = await fetch(`/api/users/check?email=${encodeURIComponent(email)}`, {
+      const response = await fetch(`http://localhost:3000/api/users/check?email=${encodeURIComponent(email)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('http://localhost:3000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }) => {
       
       if (token) {
         try {
-          const response = await fetch('/api/auth/verify', {
+          const response = await fetch('http://localhost:3000/api/auth/verify', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,

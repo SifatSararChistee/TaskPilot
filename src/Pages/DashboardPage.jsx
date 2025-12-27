@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Users, Activity, UserCheck, Menu, X, LogOut, Home, BarChart3, Settings } from 'lucide-react';
+import { AuthContext } from '../AuthContext';
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { logout} =useContext(AuthContext); 
   
   // Simulated database data - replace with actual API calls
   const mockUsers = [
@@ -28,13 +30,13 @@ export default function DashboardPage() {
 
   const handleLogout = () => {
     alert('Logging out...');
-    // Add your logout logic here
+    logout();
   };
 
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} bg-gradient-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 overflow-hidden`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} bg-linear-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 overflow-hidden`}>
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
           <nav className="space-y-2">
@@ -95,7 +97,7 @@ export default function DashboardPage() {
         <main className="flex-1 overflow-y-auto p-6">
           {/* Current User Card */}
           {currentUser && (
-            <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg p-6 mb-6 text-white">
+            <div className="bg-linear-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg p-6 mb-6 text-white">
               <h3 className="text-lg font-semibold mb-4">Logged-in User Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>

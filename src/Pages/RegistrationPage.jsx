@@ -132,7 +132,7 @@ const validatePhoneNumber = (phone) => {
     console.log('Registration data:', {
       fullName: formData.fullName,
       email: formData.email,
-      password: formData.password, // This will be hashed on backend
+      password: formData.password, 
       phoneNumber: formData.phoneNumber,
       gender: formData.gender
     });
@@ -140,14 +140,14 @@ const validatePhoneNumber = (phone) => {
     // Example API call structure:
   
     try {
-      const response = await fetch('http://localhost:3000/api/users', {
+      const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-     name: formData.fullName,        // Changed from fullName
+    name: formData.fullName,        
     email: formData.email,
     password: formData.password,
-    phone: formData.phoneNumber,     // Changed from phoneNumber
+    phone: formData.phoneNumber,    
     gender: formData.gender
         })
       });

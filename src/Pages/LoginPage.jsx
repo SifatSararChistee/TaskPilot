@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Check } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router';
+import { AuthContext } from '../AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const { login  } = useContext(AuthContext);
 
   const handleSubmit = () => {
     console.log('Login attempted with:', { email, password, rememberMe });
-    // Add your login logic here
+    login(email, password)
+          alert("Login Successful")
+        
   };
 
   return (

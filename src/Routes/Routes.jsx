@@ -2,6 +2,7 @@ import Root from "../Layout/Root";
 import AuthLayout from "../Layout/AuthLayout";
 import RegistrationPage from "../Pages/RegistrationPage";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 import { createBrowserRouter } from "react-router";
 import DashboardPage from "../Pages/DashboardPage";
 import LoginPage from '../Pages/LoginPage';
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            Component: LoginPage,
+            element: (
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            ),
           },
         ],
       },
@@ -33,7 +38,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    Component: RegistrationPage,
+    element: (
+      <PublicRoute>
+        <RegistrationPage />
+      </PublicRoute>
+    ),
   },
 ]);
 
