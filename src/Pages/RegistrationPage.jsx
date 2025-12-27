@@ -138,17 +138,17 @@ const validatePhoneNumber = (phone) => {
     });
 
     // Example API call structure:
-    /*
+  
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('http://localhost:3000/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-          phoneNumber: formData.phoneNumber,
-          gender: formData.gender
+     name: formData.fullName,        // Changed from fullName
+    email: formData.email,
+    password: formData.password,
+    phone: formData.phoneNumber,     // Changed from phoneNumber
+    gender: formData.gender
         })
       });
       
@@ -164,7 +164,7 @@ const validatePhoneNumber = (phone) => {
     } catch (error) {
       console.error('Registration error:', error);
     }
-    */
+    
     
     alert('Registration successful! (This is a demo - connect to your backend)');
   };
