@@ -1,30 +1,53 @@
-import React, { useContext, useState } from 'react';
-import { Users, Activity, UserCheck, Menu, X, LogOut, Home, BarChart3, Settings } from 'lucide-react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Users, Activity, UserCheck, Menu, X, LogOut, Home, BarChart3, Settings, User } from 'lucide-react';
 import { AuthContext } from '../AuthContext';
 
 export default function DashboardPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { logout} =useContext(AuthContext); 
+ const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { logout, user } = useContext(AuthContext); 
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/users');
+        const result = await response.json();
+        if (result.success) {
+          setUsers(result.data);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchUsers();
+  }, []);
+
+
+  console.log(users, loading)
+
   // Simulated database data - replace with actual API calls
-  const mockUsers = [
-    { id: 1, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', registrationDate: '2024-01-15', status: 'Active' },
-    { id: 2, name: 'Michael Chen', email: 'michael.chen@example.com', registrationDate: '2024-02-20', status: 'Active' },
-    { id: 3, name: 'Emma Davis', email: 'emma.davis@example.com', registrationDate: '2024-03-10', status: 'Active' },
-    { id: 4, name: 'James Wilson', email: 'james.wilson@example.com', registrationDate: '2024-04-05', status: 'Inactive' },
-    { id: 5, name: 'Lisa Anderson', email: 'lisa.anderson@example.com', registrationDate: '2024-05-12', status: 'Active' }
-  ];
+  // const mockUsers = [
+  //   { id: 1, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', registrationDate: '2024-01-15', status: 'Active' },
+  //   { id: 2, name: 'Michael Chen', email: 'michael.chen@example.com', registrationDate: '2024-02-20', status: 'Active' },
+  //   { id: 3, name: 'Emma Davis', email: 'emma.davis@example.com', registrationDate: '2024-03-10', status: 'Active' },
+  //   { id: 4, name: 'James Wilson', email: 'james.wilson@example.com', registrationDate: '2024-04-05', status: 'Inactive' },
+  //   { id: 5, name: 'Lisa Anderson', email: 'lisa.anderson@example.com', registrationDate: '2024-05-12', status: 'Active' }
+  // ];
   
   const currentUser = {
-    name: 'Sarah Johnson',
-    email: 'sarah.johnson@example.com',
-    registrationDate: '2024-01-15',
+    name: User ? user.name : 'Sarah Johnson',
+    email: User ? user.email : 'sarah.johnson@example.com',
+    created_at: user ? user.created_at : '2024-01-15',
     role: 'Administrator'
   };
   
   const stats = {
-    totalUsers: mockUsers.length,
-    activeToday: mockUsers.filter(u => u.status === 'Active').length,
+    totalUsers: users.length,
+    activeToday: users.filter(u => u.status === 'Active').length,
     newThisWeek: 2
   };
 
@@ -110,7 +133,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <p className="text-purple-100 text-sm">Registration Date</p>
-                  <p className="text-xl font-semibold">{new Date(currentUser.registrationDate).toLocaleDateString()}</p>
+                  <p className="text-xl font-semibold">{new Date(currentUser.created_at).toLocaleDateString()}</p>
                 </div>
                 <div>
                   <p className="text-purple-100 text-sm">Role</p>
@@ -176,19 +199,19 @@ export default function DashboardPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {mockUsers.map((user) => (
+                  {users.map((user) => (
                     <tr key={user.id} className="hover:bg-gray-50 transition">
                       <td className="px-6 py-4 text-sm text-gray-800">{user.id}</td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-800">{user.name}</td>
                       <td className="px-6 py-4 text-sm text-gray-600">{user.email}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{new Date(user.registrationDate).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{new Date(user.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           user.status === 'Active' 
                             ? 'bg-green-100 text-green-800' 
                             : 'bg-gray-100 text-gray-800'
                         }`}>
-                          {user.status}
+                          {user.status = 'Active'}
                         </span>
                       </td>
                     </tr>

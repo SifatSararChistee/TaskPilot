@@ -167,8 +167,6 @@ const validatePhoneNumber = (phone) => {
     } catch (error) {
       console.error('Registration error:', error);
     }
-    
-    alert('Registration successful! (This is a demo - connect to your backend)');
   };
 
 // const handleSubmit = async () => {
@@ -279,7 +277,7 @@ const validatePhoneNumber = (phone) => {
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none`}
-                placeholder="+1 (123) 456-7890"
+                placeholder="+8801712345678"
               />
               {errors.phoneNumber && <p className="mt-1 text-xs text-red-500">{errors.phoneNumber}</p>}
             </div>
