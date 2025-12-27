@@ -74,39 +74,43 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('authToken');
   };
 
-  // Register function
-  const register = async (email, password, name) => {
-    try {
-      setLoading(true);
-      setError(null);
 
-      const response = await fetch('http://localhost:3000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
+ // Enhanced Register function with better error handling
+const register = async (email, password, name, phone, gender) => {
+  try {
+    setLoading(true);
+    setError(null);
 
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
+    const response = await fetch('http://localhost:3000/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, name, phone, gender }),
+    });
 
-      const userData = await response.json();
-      setUser(userData.user);
-      
-      if (userData.token) {
-        localStorage.setItem('authToken', userData.token);
-      }
-      
-      return { success: true, user: userData.user };
-    } catch (err) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
+    const userData = await response.json();
+
+    // Handle errors from backend
+    if (!response.ok) {
+      throw new Error(userData.message || 'Registration failed');
     }
-  };
+
+    // Success - set user and token
+    setUser(userData.user);
+    
+    if (userData.token) {
+      localStorage.setItem('authToken', userData.token);
+    }
+    
+    return { success: true, user: userData.user };
+  } catch (err) {
+    setError(err.message);
+    return { success: false, error: err.message };
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Check authentication on mount
   useEffect(() => {

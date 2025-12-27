@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, Eye, EyeOff } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../AuthContext';
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,8 @@ export default function RegistrationPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-
+  // const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -157,6 +159,7 @@ const validatePhoneNumber = (phone) => {
       if (response.ok) {
         // Registration successful
         alert('Registration successful!');
+              navigate('/');
       } else {
         // Handle errors (e.g., email already exists)
         setErrors({ email: data.message });
@@ -165,9 +168,51 @@ const validatePhoneNumber = (phone) => {
       console.error('Registration error:', error);
     }
     
-    
     alert('Registration successful! (This is a demo - connect to your backend)');
   };
+
+// const handleSubmit = async () => {
+//   if (!validateForm()) {
+//     return;
+//   }
+
+//   try {
+//     const result = await register(
+//       formData.email,
+//       formData.password,
+//       formData.fullName,
+//       formData.phoneNumber,
+//       formData.gender
+//     );
+
+//     if (result.success) {
+//       alert('Registration successful!');
+//       // Clear form data after successful registration
+//       setFormData({
+//         fullName: '',
+//         email: '',
+//         password: '',
+//         confirmPassword: '',
+//         phoneNumber: '',
+//         gender: ''
+//       });
+//       // Navigate to dashboard
+//       navigate('/dashboard');
+//     } else {
+//       // Handle registration errors
+//       setErrors(prev => ({ 
+//         ...prev,
+//         email: result.error || 'Registration failed. Please try again.' 
+//       }));
+//     }
+//   } catch (error) {
+//     console.error('Registration error:', error);
+//     setErrors(prev => ({ 
+//       ...prev,
+//       email: 'An unexpected error occurred. Please try again.' 
+//     }));
+//   }
+// };
 
   const passwordValidation = validatePassword(formData.password);
 
