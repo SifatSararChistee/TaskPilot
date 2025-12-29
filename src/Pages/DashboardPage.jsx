@@ -28,7 +28,7 @@ export default function DashboardPage() {
   }, []);
 
 
-  console.log(users, loading)
+  console.log(loading)
 
   // Simulated database data - replace with actual API calls
   // const mockUsers = [
@@ -39,12 +39,17 @@ export default function DashboardPage() {
   //   { id: 5, name: 'Lisa Anderson', email: 'lisa.anderson@example.com', registrationDate: '2024-05-12', status: 'Active' }
   // ];
   
+const today = new Date();
+const formattedDate = today.toISOString().split('T')[0];
+
   const currentUser = {
     name: User ? user.name : 'Sarah Johnson',
     email: User ? user.email : 'sarah.johnson@example.com',
-    created_at: user ? user.created_at : '2024-01-15',
+    created_at: formattedDate,
     role: 'Administrator'
   };
+
+  console.log('Current User:', currentUser);
   
   const stats = {
     totalUsers: users.length,
@@ -134,7 +139,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <p className="text-purple-100 text-sm">Registration Date</p>
-                  <p className="text-xl font-semibold">{new Date(currentUser.created_at).toLocaleDateString()}</p>
+                  <p className="text-xl font-semibold">{currentUser.created_at}</p>
                 </div>
                 <div>
                   <p className="text-purple-100 text-sm">Role</p>
