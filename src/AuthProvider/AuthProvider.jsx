@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   // Check if user exists in database
   const checkUserInDatabase = async (email) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/check?email=${encodeURIComponent(email)}`, {
+      const response = await fetch(`https://task-pilot-server-iota.vercel.app/api/users/check?email=${encodeURIComponent(email)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch('https://task-pilot-server-iota.vercel.app/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ const register = async (email, password, name, phone, gender) => {
     setLoading(true);
     setError(null);
 
-    const response = await fetch('http://localhost:3000/api/auth/register', {
+    const response = await fetch('https://task-pilot-server-iota.vercel.app//api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const register = async (email, password, name, phone, gender) => {
       
       if (token) {
         try {
-          const response = await fetch('http://localhost:3000/api/auth/verify', {
+          const response = await fetch('https://task-pilot-server-iota.vercel.app/api/auth/verify', {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,

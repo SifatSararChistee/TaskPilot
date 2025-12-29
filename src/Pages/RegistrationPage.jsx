@@ -143,7 +143,7 @@ const validatePhoneNumber = (phone) => {
     // Example API call structure:
   
     try {
-      const response = await fetch('http://localhost:3000/api/auth/register', {
+      const response = await fetch('https://task-pilot-server-iota.vercel.app/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -299,8 +299,6 @@ const validatePhoneNumber = (phone) => {
                 <option value="">Select gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="other">Other</option>
-                <option value="prefer-not-to-say">Prefer not to say</option>
               </select>
               {errors.gender && <p className="mt-1 text-xs text-red-500">{errors.gender}</p>}
             </div>

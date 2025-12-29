@@ -12,7 +12,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/users');
+        const response = await fetch('https://task-pilot-server-iota.vercel.app/api/users');
         const result = await response.json();
         if (result.success) {
           setUsers(result.data);
