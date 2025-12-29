@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Users, Activity, UserCheck, Menu, X, LogOut, Home, BarChart3, Settings, User } from 'lucide-react';
 import { AuthContext } from '../AuthContext';
+import { toast } from 'react-toastify';
 
 export default function DashboardPage() {
  const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -52,8 +53,8 @@ export default function DashboardPage() {
   };
 
   const handleLogout = () => {
-    alert('Logging out...');
-    logout();
+  logout();
+  toast.success('Logged out successfully!');
   };
 
   return (

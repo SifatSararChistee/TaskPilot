@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthContext } from '../AuthContext.jsx';
+import { toast } from 'react-toastify';
 
 // Auth Provider Component - ONLY export this component
 export const AuthProvider = ({ children }) => {
@@ -56,12 +57,14 @@ export const AuthProvider = ({ children }) => {
         if (userData.token) {
           localStorage.setItem('authToken', userData.token);
         }
+        toast.success('Login successful!');
         return { success: true, user: userExists.user };
       } else {
         throw new Error('User not found in database');
       }
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
       return { success: false, error: err.message };
     } finally {
       setLoading(false);

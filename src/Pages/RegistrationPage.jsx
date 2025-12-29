@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Check, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../AuthContext';
+import { toast } from 'react-toastify';
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -158,11 +159,12 @@ const validatePhoneNumber = (phone) => {
       
       if (response.ok) {
         // Registration successful
-        alert('Registration successful!');
+        toast.success('Registration successful!');
               navigate('/');
       } else {
         // Handle errors (e.g., email already exists)
         setErrors({ email: data.message });
+        toast.error(data.message || 'Registration failed. Please try again.');
       }
     } catch (error) {
       console.error('Registration error:', error);

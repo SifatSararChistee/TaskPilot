@@ -3,6 +3,7 @@ import { Check } from 'lucide-react';
 import { Link, Navigate } from 'react-router';
 import { AuthContext } from '../AuthContext';
 
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,9 +12,7 @@ export default function LoginPage() {
 
   const handleSubmit = () => {
     console.log('Login attempted with:', { email, password, rememberMe });
-    login(email, password)
-          alert("Login Successful")
-        
+    login(email, password)        
   };
 
   return (
