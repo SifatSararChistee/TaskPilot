@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Users, Activity, UserCheck, Menu, X, LogOut, Home, BarChart3, Settings, User } from 'lucide-react';
 import { AuthContext } from '../AuthContext';
 import { toast } from 'react-toastify';
+import { Zap } from 'lucide-react';
 
 export default function DashboardPage() {
  const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -30,15 +31,7 @@ export default function DashboardPage() {
 
   console.log(loading)
 
-  // Simulated database data - replace with actual API calls
-  // const mockUsers = [
-  //   { id: 1, name: 'Sarah Johnson', email: 'sarah.johnson@example.com', registrationDate: '2024-01-15', status: 'Active' },
-  //   { id: 2, name: 'Michael Chen', email: 'michael.chen@example.com', registrationDate: '2024-02-20', status: 'Active' },
-  //   { id: 3, name: 'Emma Davis', email: 'emma.davis@example.com', registrationDate: '2024-03-10', status: 'Active' },
-  //   { id: 4, name: 'James Wilson', email: 'james.wilson@example.com', registrationDate: '2024-04-05', status: 'Inactive' },
-  //   { id: 5, name: 'Lisa Anderson', email: 'lisa.anderson@example.com', registrationDate: '2024-05-12', status: 'Active' }
-  // ];
-  
+
 const today = new Date();
 const formattedDate = today.toISOString().split('T')[0];
 
@@ -63,25 +56,37 @@ const formattedDate = today.toISOString().split('T')[0];
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse" style={{ animationDelay: '4s' }}></div>
+      </div>
+
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} bg-linear-to-b from-indigo-600 to-indigo-800 text-white transition-all duration-300 overflow-hidden`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} bg-white/5 backdrop-blur-xl border-r border-white/10 text-white transition-all duration-300 overflow-hidden relative z-10`}>
         <div className="p-6">
-          <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/50">
+              <Zap className="w-5 h-5 text-white" strokeWidth={2.5} fill="currentColor" />
+            </div>
+            <h1 className="text-2xl font-bold">FlowSync</h1>
+          </div>
           <nav className="space-y-2">
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">
+            <a href="#" className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-600/20 border border-cyan-400/30 hover:from-cyan-500/30 hover:to-purple-600/30 transition">
               <Home size={20} />
               <span>Home</span>
             </a>
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700 transition">
+            <a href="#" className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition">
               <Users size={20} />
               <span>Users</span>
             </a>
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700 transition">
+            <a href="#" className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition">
               <BarChart3 size={20} />
               <span>Analytics</span>
             </a>
-            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-indigo-700 transition">
+            <a href="#" className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition">
               <Settings size={20} />
               <span>Settings</span>
             </a>
@@ -90,30 +95,30 @@ const formattedDate = today.toISOString().split('T')[0];
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden relative z-10">
         {/* Navbar */}
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-lg">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-4">
               <button 
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition"
+                className="p-2 hover:bg-white/10 rounded-xl transition text-white"
               >
                 {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-              <h2 className="text-xl font-semibold text-gray-800">User Management</h2>
+              <h2 className="text-xl font-semibold text-white">User Management</h2>
             </div>
             
             <div className="flex items-center gap-4">
               {currentUser && (
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium text-gray-800">{currentUser.name}</p>
-                  <p className="text-xs text-gray-500">{currentUser.role}</p>
+                  <p className="text-sm font-medium text-white">{currentUser.name}</p>
+                  <p className="text-xs text-purple-200">{currentUser.role}</p>
                 </div>
               )}
               <button 
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-400 hover:to-pink-500 text-white rounded-xl transition shadow-lg shadow-red-500/30"
               >
                 <LogOut size={18} />
                 <span className="hidden sm:inline">Logout</span>
@@ -126,23 +131,23 @@ const formattedDate = today.toISOString().split('T')[0];
         <main className="flex-1 overflow-y-auto p-6">
           {/* Current User Card */}
           {currentUser && (
-            <div className="bg-linear-to-r from-purple-500 to-indigo-600 rounded-xl shadow-lg p-6 mb-6 text-white">
+            <div className="bg-gradient-to-r from-cyan-500/20 to-purple-600/20 backdrop-blur-xl rounded-2xl shadow-2xl p-6 mb-6 text-white border border-white/20">
               <h3 className="text-lg font-semibold mb-4">Logged-in User Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-purple-100 text-sm">Name</p>
+                  <p className="text-purple-200 text-sm">Name</p>
                   <p className="text-xl font-semibold">{currentUser.name}</p>
                 </div>
                 <div>
-                  <p className="text-purple-100 text-sm">Email</p>
+                  <p className="text-purple-200 text-sm">Email</p>
                   <p className="text-xl font-semibold">{currentUser.email}</p>
                 </div>
                 <div>
-                  <p className="text-purple-100 text-sm">Registration Date</p>
+                  <p className="text-purple-200 text-sm">Registration Date</p>
                   <p className="text-xl font-semibold">{currentUser.created_at}</p>
                 </div>
                 <div>
-                  <p className="text-purple-100 text-sm">Role</p>
+                  <p className="text-purple-200 text-sm">Role</p>
                   <p className="text-xl font-semibold">{currentUser.role}</p>
                 </div>
               </div>
@@ -151,73 +156,69 @@ const formattedDate = today.toISOString().split('T')[0];
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/10 hover:bg-white/10 transition group">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">Total Users</p>
-                  <p className="text-3xl font-bold text-gray-800 mt-2">{stats.totalUsers}</p>
+                  <p className="text-purple-200 text-sm font-medium">Total Users</p>
+                  <p className="text-3xl font-bold text-white mt-2">{stats.totalUsers}</p>
                 </div>
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <Users className="text-blue-600" size={28} />
+                <div className="p-3 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl border border-blue-400/30 group-hover:scale-110 transition-transform">
+                  <Users className="text-cyan-400" size={28} />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/10 hover:bg-white/10 transition group">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">Active Today</p>
-                  <p className="text-3xl font-bold text-gray-800 mt-2">{stats.activeToday}</p>
+                  <p className="text-purple-200 text-sm font-medium">Active Today</p>
+                  <p className="text-3xl font-bold text-white mt-2">{stats.activeToday}</p>
                 </div>
-                <div className="p-3 bg-green-100 rounded-lg">
-                  <UserCheck className="text-green-600" size={28} />
+                <div className="p-3 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl border border-green-400/30 group-hover:scale-110 transition-transform">
+                  <UserCheck className="text-green-400" size={28} />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/10 hover:bg-white/10 transition group">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">New This Week</p>
-                  <p className="text-3xl font-bold text-gray-800 mt-2">{stats.newThisWeek}</p>
+                  <p className="text-purple-200 text-sm font-medium">New This Week</p>
+                  <p className="text-3xl font-bold text-white mt-2">{stats.newThisWeek}</p>
                 </div>
-                <div className="p-3 bg-purple-100 rounded-lg">
-                  <Activity className="text-purple-600" size={28} />
+                <div className="p-3 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl border border-purple-400/30 group-hover:scale-110 transition-transform">
+                  <Activity className="text-purple-400" size={28} />
                 </div>
               </div>
             </div>
           </div>
 
           {/* Users Table */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-100">
-            <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-800">Registered Users</h3>
+          <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-xl border border-white/10 overflow-hidden">
+            <div className="p-6 border-b border-white/10">
+              <h3 className="text-lg font-semibold text-white">Registered Users</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-white/5 border-b border-white/10">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Registration Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-purple-200 uppercase">ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-purple-200 uppercase">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-purple-200 uppercase">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-purple-200 uppercase">Registration Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-purple-200 uppercase">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-white/10">
                   {users.map((user) => (
-                    <tr key={user.id} className="hover:bg-gray-50 transition">
-                      <td className="px-6 py-4 text-sm text-gray-800">{user.id}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-800">{user.name}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{user.email}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{new Date(user.created_at).toLocaleDateString()}</td>
+                    <tr key={user.id} className="hover:bg-white/5 transition">
+                      <td className="px-6 py-4 text-sm text-white">{user.id}</td>
+                      <td className="px-6 py-4 text-sm font-medium text-white">{user.name}</td>
+                      <td className="px-6 py-4 text-sm text-purple-200">{user.email}</td>
+                      <td className="px-6 py-4 text-sm text-purple-200">{new Date(user.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          user.status === 'Active' 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {user.status = 'Active'}
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 border border-green-400/30">
+                          {user.status}
                         </span>
                       </td>
                     </tr>
